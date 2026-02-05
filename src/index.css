@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Carnicería Virgen del Valle Design System */
+
+@layer base {
+  :root {
+    /* Background & Foreground */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+
+    /* Card */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    /* Primary - Carnicería Red */
+    --primary: 354 84% 44%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Dark Navy */
+    --secondary: 220 30% 15%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted */
+    --muted: 30 20% 95%;
+    --muted-foreground: 0 0% 40%;
+
+    /* Accent - Cream/Beige */
+    --accent: 35 40% 94%;
+    --accent-foreground: 0 0% 10%;
+
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border & Input */
+    --border: 0 0% 85%;
+    --input: 0 0% 85%;
+    --ring: 354 84% 44%;
+
+    --radius: 0.5rem;
+
+    /* Custom Colors */
+    --dark-charcoal: 0 0% 12%;
+    --cream: 35 40% 94%;
+    --gold: 45 90% 50%;
+    --dark-red: 354 70% 35%;
+    --light-gray: 0 0% 96%;
+
+    /* Sidebar */
+    --sidebar-background: 220 30% 15%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 354 84% 44%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 30% 20%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 220 30% 25%;
+    --sidebar-ring: 354 84% 44%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  /* Navbar Link Animation */
+  .nav-link {
+    @apply relative inline-block text-white font-medium transition-colors duration-300;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-0.5 bg-white transform scale-x-0 origin-left transition-transform duration-300;
+  }
+
+  .nav-link:hover::after {
+    @apply scale-x-100;
+  }
+
+  /* Section Title Decorative */
+  .section-title {
+    @apply font-display text-3xl md:text-4xl font-bold;
+  }
+
+  .section-subtitle {
+    @apply text-sm md:text-base uppercase tracking-widest text-muted-foreground;
+  }
+
+  /* Hero Scroll Arrow */
+  .scroll-arrow {
+    @apply animate-bounce cursor-pointer transition-opacity duration-300 hover:opacity-100 opacity-70;
+  }
+
+  /* Product Card */
+  .product-card {
+    @apply bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-lg;
+  }
+
+  /* WhatsApp Button */
+  .whatsapp-btn {
+    @apply fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg transition-transform duration-300 hover:scale-110;
+  }
+
+  /* Fade In Animation */
+  .fade-in-section {
+    @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+  }
+
+  .fade-in-section.visible {
+    @apply opacity-100 translate-y-0;
+  }
+
+  /* Tab Button */
+  .tab-btn {
+    @apply px-6 py-2 font-medium transition-all duration-300 border-b-2 border-transparent;
+  }
+
+  .tab-btn.active {
+    @apply text-primary border-primary;
+  }
+
+  /* Slider Arrow */
+  .slider-arrow {
+    @apply absolute top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer;
+  }
+
+  /* Contact Form Input */
+  .contact-input {
+    @apply w-full px-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300;
+  }
+
+  /* Dark Section Pattern */
+  .dark-pattern {
+    background-color: hsl(var(--dark-charcoal));
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* Footer Pattern */
+  .footer-pattern {
+    background-color: hsl(var(--primary));
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10zm10 8c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm40 40c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+  }
+}
