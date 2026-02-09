@@ -24,8 +24,8 @@
     --primary: 354 84% 44%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary - Dark Navy */
-    --secondary: 220 30% 15%;
+    /* Secondary - Warm Dark Red */
+    --secondary: 12 35% 18%;
     --secondary-foreground: 0 0% 100%;
 
     /* Muted */
@@ -63,6 +63,23 @@
     --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 220 30% 25%;
     --sidebar-ring: 354 84% 44%;
+
+    --navbar-offset: 96px;
+  }
+}
+
+@layer base {
+  .catalog-dark {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 96%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 96%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 12 30% 18%;
+    --accent-foreground: 0 0% 96%;
+    --border: 0 0% 22%;
+    --input: 0 0% 22%;
   }
 }
 
@@ -82,21 +99,270 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-display;
   }
+
+  #contacto,
+  #quienes-somos,
+  #mayorista {
+    scroll-margin-top: var(--navbar-offset);
+  }
 }
 
 @layer components {
   /* Navbar Link Animation */
   .nav-link {
-    @apply relative inline-block text-white font-medium transition-colors duration-300;
+    @apply relative inline-block text-foreground font-medium transition-colors duration-300;
   }
 
   .nav-link::after {
     content: '';
-    @apply absolute bottom-0 left-0 w-full h-0.5 bg-white transform scale-x-0 origin-left transition-transform duration-300;
+    @apply absolute bottom-0 left-0 w-full h-0.5 bg-foreground transform scale-x-0 origin-left transition-transform duration-300;
   }
 
   .nav-link:hover::after {
     @apply scale-x-100;
+  }
+
+  .switch {
+    font-size: 17px;
+    position: relative;
+    display: inline-block;
+    width: 3.5em;
+    height: 2em;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #223243;
+    transition: 0.4s;
+    border-radius: 30px;
+  }
+
+  .slider::before {
+    position: absolute;
+    content: "";
+    height: 1.4em;
+    width: 1.4em;
+    border-radius: 20px;
+    left: 0.3em;
+    bottom: 0.3em;
+    background-color: #223243;
+    box-shadow: inset 2px -2px 0 1.8px #fff;
+    transition: 0.4s;
+    animation: switch-slide-back 0.3s linear;
+  }
+
+  .switch input:checked + .slider::before {
+    background-color: #facc15;
+    box-shadow: none;
+    transform: translateX(1.5em);
+    animation: switch-slide 0.3s linear;
+  }
+
+  @keyframes switch-slide-back {
+    0% {
+      transform: translateX(1.5em);
+    }
+    80% {
+      transform: translateX(-0.3em);
+    }
+    100% {
+      transform: translateX(0em);
+    }
+  }
+
+  @keyframes switch-slide {
+    0% {
+      transform: translateX(0px);
+    }
+    80% {
+      transform: translateX(1.6em);
+    }
+    100% {
+      transform: translateX(1.4em);
+    }
+  }
+
+  .catalog-dark .benefit-card:not(.is-active) {
+    @apply bg-card text-foreground;
+  }
+
+  .catalog-dark .benefit-card-text {
+    @apply text-muted-foreground;
+  }
+
+  .footer-hours-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    white-space: nowrap;
+    flex-wrap: wrap;
+  }
+
+  .footer-hours-card {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .footer-hours-label {
+    font-weight: 600;
+    flex: 0 0 auto;
+  }
+
+  .footer-hours-time {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 480px) {
+    .footer-hours-card {
+      max-width: 100%;
+    }
+
+    .footer-hours {
+      font-size: 0.82rem;
+    }
+
+    .footer-hours-row {
+      gap: 6px;
+      flex-direction: column;
+      align-items: flex-start;
+      white-space: normal;
+    }
+
+    .footer-hours-time {
+      word-break: break-word;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .navbar-desktop .navbar-logo {
+      min-width: 140px;
+    }
+
+    .navbar-desktop .navbar-logo-img {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      max-width: 180px;
+      height: auto;
+    }
+
+    .navbar-desktop .nav-link {
+      font-family: "Roboto", sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: hsl(var(--foreground));
+      transition: color 200ms ease;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .navbar-desktop .nav-link::before {
+      content: "";
+      position: absolute;
+      height: 2px;
+      bottom: 0;
+      left: 6px;
+      right: 6px;
+      background-color: currentColor;
+      visibility: hidden;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        visibility 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .navbar-desktop .nav-group > .nav-link:not(:last-child)::before {
+      right: 28px;
+    }
+
+    .navbar-desktop .nav-link::after {
+      content: "\2666";
+      position: static;
+      transform: none;
+      width: auto;
+      height: auto;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      line-height: 1;
+      font-size: 1.05em;
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 18px;
+      color: hsl(var(--primary));
+    }
+
+    .navbar-desktop .nav-group > .nav-link:last-child::after {
+      content: "";
+      margin-left: 0;
+    }
+
+    .navbar-desktop .nav-link[aria-current="page"] {
+      color: hsl(var(--primary));
+    }
+
+    .navbar-desktop .nav-link:hover {
+      color: hsl(var(--primary));
+    }
+
+    .navbar-desktop .nav-link:hover::before {
+      visibility: visible;
+      transform: scaleX(1);
+    }
+
+    .navbar-desktop .nav-group {
+      gap: 28px;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1280px) {
+    .navbar-desktop .navbar-pad {
+      padding-block: 12px;
+    }
+
+    .navbar-desktop .navbar-inner {
+      padding-inline: 8px;
+    }
+
+    .navbar-desktop .navbar-grid {
+      column-gap: 24px;
+    }
+
+    .navbar-desktop .nav-group {
+      gap: 16px;
+    }
+
+    .navbar-desktop .nav-group-left {
+      padding-left: 0;
+    }
+
+    .navbar-desktop .nav-group-right {
+      padding-right: 0;
+      margin-right: -6px;
+    }
+
+    .navbar-desktop .navbar-logo-img {
+      max-width: 150px;
+    }
+
+    .navbar-desktop .nav-link {
+      font-size: 12px;
+    }
   }
 
   /* Section Title Decorative */
@@ -118,9 +384,71 @@
     @apply bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-lg;
   }
 
-  /* WhatsApp Button */
-  .whatsapp-btn {
-    @apply fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg transition-transform duration-300 hover:scale-110;
+  /* WhatsApp Float */
+  .whatsapp-float {
+    @apply fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 opacity-0 translate-y-4;
+  }
+
+  .whatsapp-float.is-visible {
+    @apply opacity-100 translate-y-0;
+  }
+
+  .whatsapp-float:hover {
+    @apply scale-110;
+  }
+
+  .whatsapp-float .pulse {
+    @apply absolute inset-0 rounded-full;
+    animation: whatsapp-pulse 1.6s ease-out infinite;
+  }
+
+  .whatsapp-float .pulse::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 9999px;
+    border: 2px solid rgba(34, 197, 94, 0.85);
+    animation: whatsapp-ring 1.6s ease-out infinite;
+    pointer-events: none;
+  }
+
+  .whatsapp-tooltip {
+    @apply absolute right-full mr-3 px-3 py-1 rounded-md text-xs font-semibold bg-foreground text-background opacity-0 translate-x-1 transition-all duration-300;
+    white-space: nowrap;
+  }
+
+  .whatsapp-tooltip.is-visible {
+    @apply opacity-100 translate-x-0;
+  }
+
+  .whatsapp-float:hover .whatsapp-tooltip {
+    @apply opacity-100 translate-x-0;
+  }
+
+  @keyframes whatsapp-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.65);
+    }
+    70% {
+      box-shadow: 0 0 0 20px rgba(34, 197, 94, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    }
+  }
+
+  @keyframes whatsapp-ring {
+    0% {
+      transform: scale(0.9);
+      opacity: 0.95;
+    }
+    70% {
+      transform: scale(1.45);
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
   }
 
   /* Fade In Animation */
@@ -142,9 +470,9 @@
   }
 
   /* Slider Arrow */
-  .slider-arrow {
-    @apply absolute top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer;
-  }
+.slider-arrow {
+  @apply absolute top-1/2 -translate-y-1/2 translate-y-10 z-20 w-10 h-10 md:w-12 md:h-12 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer;
+}
 
   /* Contact Form Input */
   .contact-input {
@@ -172,4 +500,80 @@
   .text-shadow-lg {
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
   }
+}
+/* Hero premium fade animation */
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-fade {
+  animation: hero-fade 0.8s ease-out forwards;
+}
+
+/* Catalog page transition */
+@keyframes catalog-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.catalog-page-enter {
+  animation: catalog-page-enter 0.6s ease-out;
+}
+/* Hamburger animation */
+  .line {
+    fill: none;
+    stroke: hsl(var(--foreground));
+    stroke-width: 5;
+    stroke-linecap: round;
+    transition: all 0.4s ease;
+  }
+
+.lineTop {
+  stroke-dasharray: 40 40;
+  stroke-dashoffset: 25;
+}
+
+.lineMid {
+  stroke-dasharray: 40 40;
+}
+
+.lineBottom {
+  stroke-dasharray: 40 40;
+  stroke-dashoffset: 60;
+}
+
+.line.open {
+  stroke: hsl(var(--primary));
+}
+
+.lineTop.open {
+  stroke-dashoffset: 0;
+  transform-origin: left;
+  transform: rotate(45deg) translate(-7px, -5px);
+}
+
+.lineMid.open {
+  stroke-dashoffset: 40;
+  opacity: 0;
+}
+
+.lineBottom.open {
+  stroke-dashoffset: 0;
+  transform-origin: left;
+  transform: rotate(-45deg) translate(-5px, 5px);
 }
