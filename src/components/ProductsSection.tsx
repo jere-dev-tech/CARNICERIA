@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import productBife from "@/assets/product-bife.png";
 import productBocado from "@/assets/product-bocado.png";
 import productBondiola from "@/assets/product-bondiola.png";
@@ -46,13 +47,14 @@ export const ProductsSection = () => {
     return () => observer.disconnect();
   }, []);
 
+
   return (
     <section id="cortes" ref={sectionRef} className="py-16 bg-background">
       <div className="container">
         {/* Header */}
         <div className="text-center mb-10 fade-in-section">
           <p className="section-subtitle mb-2">
-            EN <span className="text-primary font-bold">CERDO VAL!</span> TENEMOS
+            EN <span className="text-primary font-bold"> CARNICERIA VIRGEN DEL VALLE</span> TENEMOS
           </p>
           <h2 className="section-title text-foreground">TODOS LOS CORTES</h2>
         </div>
@@ -62,13 +64,21 @@ export const ProductsSection = () => {
           <div className="inline-flex border-b-2 border-border">
             <button
               onClick={() => setActiveTab("cerdo")}
-              className={`tab-btn ${activeTab === "cerdo" ? "active" : "text-muted-foreground"}`}
+              className={`tab-btn ${
+                activeTab === "cerdo"
+                  ? "active"
+                  : "text-muted-foreground"
+              }`}
             >
               CORTES DE CERDO
             </button>
             <button
               onClick={() => setActiveTab("vaca")}
-              className={`tab-btn ${activeTab === "vaca" ? "active" : "text-muted-foreground"}`}
+              className={`tab-btn ${
+                activeTab === "vaca"
+                  ? "active"
+                  : "text-muted-foreground"
+              }`}
             >
               CORTES DE VACA
             </button>
@@ -77,11 +87,10 @@ export const ProductsSection = () => {
 
         {/* Products Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-          {products.map((product, index) => (
+          {products.map((product) => (
             <div
               key={`${activeTab}-${product.name}`}
-              className="product-card p-4 text-center fade-in-section"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className="product-card p-4 text-center"
             >
               <div className="aspect-square mb-4 flex items-center justify-center">
                 <img
@@ -97,10 +106,32 @@ export const ProductsSection = () => {
           ))}
         </div>
 
+        {/* Botón */}
+        <div className="text-center mt-10">
+          <Link
+            to="/productos"
+            className="inline-flex bg-primary text-primary-foreground px-8 py-3 rounded-full font-semibold tracking-wide hover:bg-dark-red transition-all duration-300"
+          >
+            VER TODOS LOS PRODUCTOS
+          </Link>
+        </div>
+
         {/* Pagination Dots */}
         <div className="flex justify-center gap-2 mt-8">
-          <span className="w-3 h-3 rounded-full bg-primary" />
-          <span className="w-3 h-3 rounded-full bg-border" />
+          <button
+            onClick={() => setActiveTab("cerdo")}
+            className={`w-3 h-3 rounded-full transition-colors ${
+              activeTab === "cerdo" ? "bg-primary" : "bg-border"
+            }`}
+            aria-label="Ver cortes de cerdo"
+          />
+          <button
+            onClick={() => setActiveTab("vaca")}
+            className={`w-3 h-3 rounded-full transition-colors ${
+              activeTab === "vaca" ? "bg-primary" : "bg-border"
+            }`}
+            aria-label="Ver cortes de vaca"
+          />
         </div>
       </div>
     </section>

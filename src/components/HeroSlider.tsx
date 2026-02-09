@@ -7,41 +7,37 @@ import heroSlide3 from "@/assets/hero-slide-3.jpg";
 const slides = [
   {
     image: heroSlide1,
-    title: "CALIDAD Y",
-    titleAccent: "PRECIO",
-    subtitle: "La mejor calidad y el mejor precio en cortes de cerdo y vaca.",
+    title: "CARNICERÍA",
+    titleAccent: "VIRGEN DEL VALLE",
+    subtitle:
+      "Carne fresca todos los días para las familias y comercios de Catamarca.",
   },
   {
     image: heroSlide2,
-    title: "CARNE",
-    titleAccent: "FRESCA",
-    subtitle: "Selección premium de carnes directamente del campo a su mesa.",
+    title: "CORTES",
+    titleAccent: "DE CALIDAD",
+    subtitle:
+      "Variedad de cortes de cerdo y vaca, seleccionados con los mejores estándares.",
   },
   {
     image: heroSlide3,
-    title: "SABOR",
-    titleAccent: "AUTÉNTICO",
-    subtitle: "Tradición y calidad en cada corte que ofrecemos.",
+    title: "ATENCIÓN",
+    titleAccent: "DE CONFIANZA",
+    subtitle:
+      "Precios justos y productos frescos para tu mesa todos los días.",
   },
 ];
 
 export const HeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const nextSlide = useCallback(() => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
     setCurrentSlide((prev) => (prev + 1) % slides.length);
-    setTimeout(() => setIsTransitioning(false), 500);
-  }, [isTransitioning]);
+  }, []);
 
   const prevSlide = useCallback(() => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-    setTimeout(() => setIsTransitioning(false), 500);
-  }, [isTransitioning]);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
@@ -49,9 +45,16 @@ export const HeroSlider = () => {
   }, [nextSlide]);
 
   const scrollToNext = () => {
-    const nextSection = document.querySelector("#quienes-somos");
+    const nextSection = document.querySelector("#beneficios");
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const scrollToCortes = () => {
+    const cortes = document.querySelector("#cortes");
+    if (cortes) {
+      cortes.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -74,27 +77,33 @@ export const HeroSlider = () => {
         </div>
       ))}
 
-      {/* Content */}
-      <div className="absolute inset-0 z-20 flex items-center justify-center text-center px-4">
-        <div
-          className={`max-w-3xl mx-auto transition-all duration-500 ${
-            isTransitioning
-              ? "opacity-0 translate-y-4"
-              : "opacity-100 translate-y-0"
-          }`}
-        >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-primary-foreground text-shadow-lg mb-6">
-            {slides[currentSlide].title}{" "}
-            <span className="text-primary italic">
-              {slides[currentSlide].titleAccent}
-            </span>
-          </h1>
+{/* Content */}
+<div className="absolute inset-0 z-20 flex items-center justify-center text-center px-4">
+  <div
+    key={currentSlide}
+    className="max-w-3xl mx-auto animate-hero-fade"
+  >
+    <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-primary-foreground text-shadow-lg mb-6">
+      {slides[currentSlide].title}{" "}
+      <span className="text-black italic">
+        {slides[currentSlide].titleAccent}
+      </span>
+    </h1>
 
-          <p className="text-lg md:text-xl text-primary-foreground/90 text-shadow max-w-xl mx-auto">
-            {slides[currentSlide].subtitle}
-          </p>
-        </div>
-      </div>
+    <p className="text-lg md:text-xl text-primary-foreground/90 text-shadow max-w-xl mx-auto mb-8">
+      {slides[currentSlide].subtitle}
+    </p>
+
+    {/* Botón Ver Cortes */}
+    <button
+      onClick={scrollToCortes}
+      className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-semibold tracking-wide hover:bg-dark-red transition-all duration-300"
+    >
+      VER CORTES
+    </button>
+  </div>
+</div>
+
 
       {/* Navigation Arrows */}
       <button
@@ -111,12 +120,11 @@ export const HeroSlider = () => {
       </button>
 
       {/* Scroll Arrow */}
-      <button
-        onClick={scrollToNext}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 scroll-arrow"
-      >
-        <ChevronDown className="w-10 h-10 text-primary-foreground/70" />
-      </button>
+      <div className="absolute bottom-2 left-0 right-0 z-20 flex justify-center">
+        <button onClick={scrollToNext} className="scroll-arrow">
+          <ChevronDown className="w-10 h-10 text-primary-foreground/70" />
+        </button>
+      </div>
     </section>
   );
 };
